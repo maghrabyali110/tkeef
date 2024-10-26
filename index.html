@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شركة التكييفات - مصر</title>
+    <style>
+        /* تنسيقات عامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* تنسيق الهيدر */
+        header {
+            background-color: #005b96;
+            color: #fff;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* تنسيق القائمة */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #eee;
+            padding: 0.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #005b96;
+            color: #fff;
+        }
+
+        /* القسم الرئيسي */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .main-content h1 {
+            color: #005b96;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .main-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* تنسيق البطاقات */
+        .products, .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+            padding: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            color: #005b96;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .card button {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #005b96;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #003f6b;
+            transform: scale(1.05);
+        }
+
+        /* صفحة الخدمات */
+        #services-page, #contact-page {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #services-page h2, #contact-page h2 {
+            color: #005b96;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: #005b96;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* زرين العودة والخدمات */
+        .back-button, .services-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background-color: #005b96;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover, .services-button:hover {
+            background-color: #003f6b;
+        }
+
+        /* تصميم نافذة الطلب */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: #005b96;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .modal-content button {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #005b96;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #003f6b;
+        }
+
+        /* تنسيق أيقونات التواصل الاجتماعي */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: #005b96;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #003f6b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header>
+        شركة التكييفات - مصر
+    </header>
+
+    <!-- القائمة -->
+    <nav>
+        <a href="#home" onclick="showMainContent()">الرئيسية</a>
+        <a href="#products" onclick="showMainContent()">المنتجات</a>
+        <a href="#services" onclick="showServicesPage()">الخدمات</a>
+        <a href="#contact" onclick="showContactPage()">تواصل معنا</a>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content" id="home">
+        <h1>مرحبا بكم في شركة التكييفات</h1>
+        <p>نقدم أفضل خدمات التكييف وصيانة الأجهزة في مصر بجودة عالية وأسعار تنافسية.</p>
+        
+        <!-- البطاقات -->
+        <div class="products" id="products">
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 1">
+                <h3>تكييف سبليت 1.5 حصان</h3>
+                <p>أفضل تكييف للمساحات الصغيرة.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 2">
+                <h3>تكييف مركزي 5 حصان</h3>
+                <p>تكييف قوي للمساحات الكبيرة مثل الشركات والمكاتب.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 3">
+                <h3>تكييف محمول 2 حصان</h3>
+                <p>تكييف سهل النقل ومثالي للمساحات الصغيرة.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 4">
+                <h3>تكييف سبليت 2.5 حصان</h3>
+                <p>أفضل أداء للمساحات المتوسطة.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 5">
+                <h3>تكييف دولابي 3 حصان</h3>
+                <p>تكييف مناسب للاستخدام التجاري.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+            <div class="card">
+                <img src="data:image/jpeg;base64,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" alt="تكييف 6">
+                <h3>تكييف سبليت 3 حصان</h3>
+                <p>تكييف مثالي للمنازل الكبيرة.</p>
+                <button onclick="openOrderModal()">اطلب الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الخدمات -->
+    <div id="services-page">
+        <h2>خدماتنا</h2>
+        <div class="services">
+            <div class="card">
+                <h3>صيانة التكييفات</h3>
+                <p>خدمة صيانة دورية للتكييفات لضمان الأداء المثالي.</p>
+                <button onclick="openOrderModal()">اطلب الخدمة</button>
+            </div>
+            <div class="card">
+                <h3>تركيب التكييفات</h3>
+                <p>تركيب احترافي لجميع أنواع التكييفات.</p>
+                <button onclick="openOrderModal()">اطلب الخدمة</button>
+            </div>
+            <div class="card">
+                <h3>تنظيف التكييفات</h3>
+                <p>خدمة تنظيف دورية للحفاظ على جودة الهواء.</p>
+                <button onclick="openOrderModal()">اطلب الخدمة</button>
+            </div>
+            <div class="card">
+                <h3>استشارات التكييف</h3>
+                <p>استشارات حول اختيار أفضل الحلول للتكييف.</p>
+                <button onclick="openOrderModal()">اطلب الخدمة</button>
+            </div>
+        </div>
+        <a class="back-button" href="#" onclick="showMainContent()">العودة للرئيسية</a>
+    </div>
+
+    <!-- صفحة تواصل معنا -->
+    <div id="contact-page">
+        <h2>تواصل معنا</h2>
+        <p>إذا كانت لديك أي استفسارات أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا عبر القنوات التالية:</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank">فيسبوك</a>
+            <a href="https://www.twitter.com" target="_blank">تويتر</a>
+            <a href="https://www.instagram.com" target="_blank">إنستغرام</a>
+            <a href="https://wa.me/20123456789" target="_blank">واتساب</a>
+        </div>
+        <a class="back-button" href="#" onclick="showMainContent()">العودة للرئيسية</a>
+    </div>
+
+    <!-- نافذة الطلب -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <h3>بيانات الطلب</h3>
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" placeholder="أدخل اسمك هنا" required>
+            <label for="phone">رقم الهاتف:</label>
+            <input type="tel" id="phone" placeholder="أدخل رقم هاتفك" required>
+            <button onclick="submitOrder()">تأكيد الطلب</button>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        جميع الحقوق محفوظة © 2024 شركة التكييفات
+    </footer>
+
+    <script>
+        function showMainContent() {
+            document.getElementById("home").style.display = "block";
+            document.getElementById("services-page").style.display = "none";
+            document.getElementById("contact-page").style.display = "none";
+        }
+
+        function showServicesPage() {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("services-page").style.display = "block";
+            document.getElementById("contact-page").style.display = "none";
+        }
+
+        function showContactPage() {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("services-page").style.display = "none";
+            document.getElementById("contact-page").style.display = "block";
+        }
+
+        function openOrderModal() {
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function submitOrder() {
+            alert("تم إرسال الطلب بنجاح!");
+            document.getElementById("orderModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
